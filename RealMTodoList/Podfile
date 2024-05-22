@@ -7,5 +7,5 @@ target 'RealMTodoList' do
 
   # Pods for RealMTodoList
 
-pod 'RealmSwift', '~>10'
+  pod 'RealmSwift', '~> 10'
 end
