@@ -13,6 +13,9 @@
 		542CD57A2BFDA77100027FBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 542CD5792BFDA77100027FBC /* Assets.xcassets */; };
 		542CD57D2BFDA77100027FBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 542CD57C2BFDA77100027FBC /* Preview Assets.xcassets */; };
 		54C923FB2BFDB74A00722D69 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C923FA2BFDB74A00722D69 /* TodoList.swift */; };
+		54C923FD2BFDC65400722D69 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C923FC2BFDC65400722D69 /* ViewModel.swift */; };
+		54C923FF2BFDD99B00722D69 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C923FE2BFDD99B00722D69 /* TodoListView.swift */; };
+		54C924012BFDD9A700722D69 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C924002BFDD9A700722D69 /* SettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		542CD5792BFDA77100027FBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		542CD57C2BFDA77100027FBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		54C923FA2BFDB74A00722D69 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
+		54C923FC2BFDC65400722D69 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		54C923FE2BFDD99B00722D69 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
+		54C924002BFDD9A700722D69 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		65FEBD3DFE3F4F39336AE640 /* Pods-RealMTodoList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealMTodoList.debug.xcconfig"; path = "Target Support Files/Pods-RealMTodoList/Pods-RealMTodoList.debug.xcconfig"; sourceTree = "<group>"; };
 		B3EBB90C643292587FCEA516 /* Pods-RealMTodoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealMTodoList.release.xcconfig"; path = "Target Support Files/Pods-RealMTodoList/Pods-RealMTodoList.release.xcconfig"; sourceTree = "<group>"; };
 		C70A972C95332C1849E2DC90 /* Pods_RealMTodoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealMTodoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +57,7 @@
 		5402D8282BFDAF0400C08E8E /* VM */ = {
 			isa = PBXGroup;
 			children = (
+				54C923FC2BFDC65400722D69 /* ViewModel.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -80,7 +87,6 @@
 				54C923F82BFDAF1E00722D69 /* View */,
 				5402D8282BFDAF0400C08E8E /* VM */,
 				542CD5752BFDA76F00027FBC /* RealMTodoListApp.swift */,
-				542CD5772BFDA76F00027FBC /* ContentView.swift */,
 				542CD5792BFDA77100027FBC /* Assets.xcassets */,
 				542CD57B2BFDA77100027FBC /* Preview Content */,
 			);
@@ -98,6 +104,9 @@
 		54C923F82BFDAF1E00722D69 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				542CD5772BFDA76F00027FBC /* ContentView.swift */,
+				54C923FE2BFDD99B00722D69 /* TodoListView.swift */,
+				54C924002BFDD9A700722D69 /* SettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -234,6 +243,9 @@
 			files = (
 				54C923FB2BFDB74A00722D69 /* TodoList.swift in Sources */,
 				542CD5782BFDA76F00027FBC /* ContentView.swift in Sources */,
+				54C923FF2BFDD99B00722D69 /* TodoListView.swift in Sources */,
+				54C924012BFDD9A700722D69 /* SettingView.swift in Sources */,
+				54C923FD2BFDC65400722D69 /* ViewModel.swift in Sources */,
 				542CD5762BFDA76F00027FBC /* RealMTodoListApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
