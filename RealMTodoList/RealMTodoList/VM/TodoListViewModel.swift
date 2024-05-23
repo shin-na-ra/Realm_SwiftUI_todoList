@@ -29,7 +29,6 @@ class TodoListViewModel: ObservableObject {
             
             let realm = try Realm()
             let results = realm.objects(TodoListObject.self)
-            print("direct : ",realm.configuration.fileURL!)
             
             token = results.observe({ changes in
                 self.todos = results.map(TodoList.init)

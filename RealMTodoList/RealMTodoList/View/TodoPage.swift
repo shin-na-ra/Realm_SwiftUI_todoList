@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct TodoPage: View {
     
@@ -15,6 +16,7 @@ struct TodoPage: View {
     @State var startDate: Date = Date()
     @State var endDate: Date = Date()
     @FocusState var isTextFieldFoucsed: Bool
+    @Environment(\.dismiss) var dismiss
     
     let todayDate = Date.now
     
@@ -25,18 +27,21 @@ struct TodoPage: View {
         let todoLists = viewModel.todoLists
         
         NavigationView(content: {
-            ScrollView(content: {
                 List(todoLists) { todolist in
-                    NavigationLink(destination: TodoDetailPage()) {
-                            VStack(alignment: .leading, content: {
-                                Text("성명 : \(todolist.title)")
-                                Text("학변 : \(todolist.startdate)")
-                                Text("학변 : \(todolist.enddate)")
-                                    .font(.system(size: 14))
-                            }) // VStack
-                        } // NavigationLink
+                    NavigationLink(destination: {
+                        TodoDetailPage()
+                    }, label: {
+                        VStack(content: {
+                            Text(todolist.title)
+                                .bold()
+                            Text(todolist.startdate, style: .date)
+                            Text(todolist.enddate, style: .date)
+                        })
+                    })
                 }// List
-            })
+                .onAppear {
+                    viewModel.setupObserver()
+                }
             .navigationTitle("TodoList")
             .navigationBarTitleDisplayMode(.inline)
             .font(.system(.body, design: .rounded))
@@ -65,35 +70,14 @@ struct TodoPage: View {
                                 
                                     HStack {
                                         Spacer()
-                                        Text("시작일 : ")
-                                        
-                                        DatePicker(
-                                            "",
-                                            selection: $startDate,
-                                            displayedComponents: [.date]
-                                        )
-                                        .frame(width: 150)
-                                        .environment(\.locale, Locale(identifier: "ko_KR")) // 한국어로 설정
-                                        .tint(.black)
-                                        
+                                        showDatePicker("시작일", variable: $startDate)
                                         Spacer()
                                     }
                                     .padding(.bottom, 10)
                                 
                                     HStack {
                                         Spacer()
-                                        
-                                        Text("종료일 : ")
-                                        
-                                        DatePicker(
-                                            "",
-                                            selection: $endDate,
-                                            displayedComponents: [.date]
-                                        )
-                                        .frame(width: 150)
-                                        .environment(\.locale, Locale(identifier: "ko_KR")) // 한국어로 설정
-                                        .tint(.black)
-                                        
+                                        showDatePicker("종료일", variable: $endDate)
                                         Spacer()
                                     }
                                     .padding(.bottom, 60)
@@ -104,11 +88,17 @@ struct TodoPage: View {
                                         isTextFieldFoucsed = false
                                         isAlert.toggle()
                                         viewModel.addTodoList(title: userInput, startdate: startDate, enddate: endDate, status: 0)
+                                        dismiss()
+                                        
+                                        userInput = ""
+                                        startDate = Date.now
+                                        endDate = Date.now
+                                        print("## realm file dir -> \(Realm.Configuration.defaultConfiguration.fileURL!)")
                                     })
                                     .tint(.white)
                                     .buttonStyle(.bordered)
                                     .buttonBorderShape(.capsule)
-                                    .background(Color.primary)
+                                    .background(Color("MyColor"))
                                     .cornerRadius(30)
                                     .controlSize(.large)
                                 }

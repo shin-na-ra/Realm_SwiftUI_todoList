@@ -17,6 +17,7 @@
 		54C923FD2BFDC65400722D69 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C923FC2BFDC65400722D69 /* TodoListViewModel.swift */; };
 		54C923FF2BFDD99B00722D69 /* TodoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C923FE2BFDD99B00722D69 /* TodoPage.swift */; };
 		54C924012BFDD9A700722D69 /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C924002BFDD9A700722D69 /* SettingPage.swift */; };
+		54DC82DB2BFED3AA00336707 /* C_DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC82DA2BFED3AA00336707 /* C_DatePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		54C923FC2BFDC65400722D69 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		54C923FE2BFDD99B00722D69 /* TodoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPage.swift; sourceTree = "<group>"; };
 		54C924002BFDD9A700722D69 /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
+		54DC82DA2BFED3AA00336707 /* C_DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C_DatePicker.swift; sourceTree = "<group>"; };
 		65FEBD3DFE3F4F39336AE640 /* Pods-RealMTodoList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealMTodoList.debug.xcconfig"; path = "Target Support Files/Pods-RealMTodoList/Pods-RealMTodoList.debug.xcconfig"; sourceTree = "<group>"; };
 		B3EBB90C643292587FCEA516 /* Pods-RealMTodoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealMTodoList.release.xcconfig"; path = "Target Support Files/Pods-RealMTodoList/Pods-RealMTodoList.release.xcconfig"; sourceTree = "<group>"; };
 		C70A972C95332C1849E2DC90 /* Pods_RealMTodoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealMTodoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,7 @@
 		542CD5742BFDA76F00027FBC /* RealMTodoList */ = {
 			isa = PBXGroup;
 			children = (
+				54DC82D92BFED38500336707 /* Component */,
 				54C923F92BFDAF2500722D69 /* Model */,
 				54C923F82BFDAF1E00722D69 /* View */,
 				5402D8282BFDAF0400C08E8E /* VM */,
@@ -120,6 +123,14 @@
 				54C923FA2BFDB74A00722D69 /* TodoList.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		54DC82D92BFED38500336707 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				54DC82DA2BFED3AA00336707 /* C_DatePicker.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		E661CF990BD394E70559452A /* Frameworks */ = {
@@ -251,6 +262,7 @@
 				54C923FB2BFDB74A00722D69 /* TodoList.swift in Sources */,
 				542CD5782BFDA76F00027FBC /* ContentView.swift in Sources */,
 				54C923FF2BFDD99B00722D69 /* TodoPage.swift in Sources */,
+				54DC82DB2BFED3AA00336707 /* C_DatePicker.swift in Sources */,
 				54A1B14C2BFDE92D0013BA5D /* TodoDetailPage.swift in Sources */,
 				54C924012BFDD9A700722D69 /* SettingPage.swift in Sources */,
 				54C923FD2BFDC65400722D69 /* TodoListViewModel.swift in Sources */,
