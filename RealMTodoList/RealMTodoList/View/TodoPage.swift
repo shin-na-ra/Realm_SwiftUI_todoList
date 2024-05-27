@@ -17,6 +17,9 @@ struct TodoPage: View {
     @State var endDate: Date = Date()
     @FocusState var isTextFieldFoucsed: Bool
     @Environment(\.dismiss) var dismiss
+    @State private var alertTitle: String = ""
+    @State private var alertMessage: String = ""
+    @State private var alertButton: String = ""
     
     let todayDate = Date.now
     
@@ -78,42 +81,51 @@ struct TodoPage: View {
                                     .focused($isTextFieldFoucsed)
                                     .padding(.bottom, 60)
                                 
-                                    HStack {
-                                        Spacer()
-                                        showDatePicker("시작일", variable: $startDate)
-                                        Spacer()
-                                    }
-                                    .padding(.bottom, 10)
+                                HStack {
+                                    Spacer()
+                                    showDatePicker("시작일", variable: $startDate)
+                                    Spacer()
+                                }
+                                .padding(.bottom, 10)
                                 
-                                    HStack {
-                                        Spacer()
-                                        showDatePicker("종료일", variable: $endDate)
-                                        Spacer()
-                                    }
-                                    .padding(.bottom, 60)
-                                    
+                                HStack {
+                                    Spacer()
+                                    showDatePicker("종료일", variable: $endDate)
+                                    Spacer()
+                                }
+                                .padding(.bottom, 60)
+                                
 
                                 VStack {
-                                    Button("추가", action: {
-                                        isTextFieldFoucsed = false
-                                        isAlert.toggle()
-                                        viewModel.addTodoList(title: userInput, startdate: startDate, enddate: endDate, status: 0)
-                                        dismiss()
+                                    Button("추가하기", action: {
                                         
-                                        userInput = ""
-                                        startDate = Date.now
-                                        endDate = Date.now
-                                        print("## realm file dir -> \(Realm.Configuration.defaultConfiguration.fileURL!)")
+                                        if userInput.isEmpty {
+                                            isTextFieldFoucsed = false
+                                            isAlert.toggle()
+                                            showAlert(title: "알림", message: "데이터를 입력해주세요.", button: "확인")
+                                        } else {
+                                            isTextFieldFoucsed = false
+                                            isAlert.toggle()
+                                            viewModel.addTodoList(title: userInput, startdate: startDate, enddate: endDate, status: 0)
+                                            dismiss()
+                                            
+                                            userInput = ""
+                                            startDate = Date.now
+                                            endDate = Date.now
+                                            print("## realm file dir -> \(Realm.Configuration.defaultConfiguration.fileURL!)")
+                                        }
+                                        
                                     })
                                     .tint(.white)
                                     .buttonStyle(.bordered)
                                     .buttonBorderShape(.capsule)
-                                    .background(Color("MyColor"))
+                                    .background(Color("myColor1"))
                                     .cornerRadius(30)
                                     .controlSize(.large)
+                                    .frame(width: 200, height: 50) // 버튼의 크기 조정
                                 }
-                                .frame(width: 200, height: 50) // 버튼의 크기 조정
                             })
+
                         })
                 })
             })
@@ -121,6 +133,14 @@ struct TodoPage: View {
 
         
     }// body
+    
+    func showAlert(title: String, message: String, button: String) {
+        alertTitle = title
+        alertMessage = message
+        alertButton = button
+        isAlert = true
+        dismiss()
+    }
 }
 
 #Preview {
