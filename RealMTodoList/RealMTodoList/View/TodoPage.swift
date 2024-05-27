@@ -20,6 +20,13 @@ struct TodoPage: View {
     
     let todayDate = Date.now
     
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 MM월 dd일"
+        return formatter
+    }()
+    
     
     var body: some View {
         
@@ -29,13 +36,18 @@ struct TodoPage: View {
         NavigationView(content: {
                 List(todoLists) { todolist in
                     NavigationLink(destination: {
-                        TodoDetailPage()
+                        TodoDetailPage(id: todolist.id.stringValue, title: todolist.title, startdate: todolist.startdate, enddate: todolist.enddate)
                     }, label: {
-                        VStack(content: {
+                        VStack(alignment: .leading, content: {
                             Text(todolist.title)
                                 .bold()
-                            Text(todolist.startdate, style: .date)
-                            Text(todolist.enddate, style: .date)
+                            HStack(content: {
+                                Text(dateFormatter.string(from: todolist.startdate))
+                                Text("~")
+                                Text(dateFormatter.string(from: todolist.enddate))
+                            })
+                            .padding(.top, 5)
+                            .font(.system(size: 15))
                         })
                     })
                 }// List
@@ -53,8 +65,6 @@ struct TodoPage: View {
                         })
                         .sheet(isPresented: $isAlert, content: {
                             VStack(content: {
-                                
-                                
                                 Text("할 일 :")
                                     .bold()
                                     .padding(.trailing, 170)
