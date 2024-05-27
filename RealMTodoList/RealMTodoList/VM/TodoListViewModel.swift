@@ -41,13 +41,16 @@ class TodoListViewModel: ObservableObject {
     }
     
     //add
-    func addTodoList(title: String, startdate: Date, enddate: Date, status: Int) {
+    func addTodoList(title: String, startdate: Date, enddate: Date, status: Int) -> Bool{
+        
         let todolist = TodoListObject()
         todolist.title = title
         todolist.startdate = startdate
         todolist.enddate = enddate
         todolist.status = status
         $todoLists.append(todolist)
+        
+        return true
     }
     
     

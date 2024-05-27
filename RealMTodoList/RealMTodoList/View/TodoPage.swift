@@ -16,10 +16,12 @@ struct TodoPage: View {
     @State var startDate: Date = Date()
     @State var endDate: Date = Date()
     @FocusState var isTextFieldFoucsed: Bool
+    @State var result: Bool = true
     @Environment(\.dismiss) var dismiss
     @State private var alertTitle: String = ""
     @State private var alertMessage: String = ""
     @State private var alertButton: String = ""
+    @State private var alertOpen: Bool = false
     
     let todayDate = Date.now
     
@@ -98,23 +100,23 @@ struct TodoPage: View {
 
                                 VStack {
                                     Button("추가하기", action: {
+                                        alertOpen.toggle()
+                                        isTextFieldFoucsed = false
                                         
-                                        if userInput.isEmpty {
-                                            isTextFieldFoucsed = false
-                                            isAlert.toggle()
-                                            showAlert(title: "알림", message: "데이터를 입력해주세요.", button: "확인")
+                                        self.result = viewModel.addTodoList(title: userInput, startdate: startDate, enddate: endDate, status: 0)
+                                        
+                                        if self.result {
+                                            showAlert(title: "알림", message: "추가되었습니다.", button: "확인")
                                         } else {
-                                            isTextFieldFoucsed = false
-                                            isAlert.toggle()
-                                            viewModel.addTodoList(title: userInput, startdate: startDate, enddate: endDate, status: 0)
-                                            dismiss()
-                                            
-                                            userInput = ""
-                                            startDate = Date.now
-                                            endDate = Date.now
-                                            print("## realm file dir -> \(Realm.Configuration.defaultConfiguration.fileURL!)")
+                                            showAlert(title: "알림", message: "추가에 실패했습니다.", button: "확인")
                                         }
                                         
+                                        alertOpen = true
+                                        
+                                        self.userInput = ""
+                                        startDate = Date.now
+                                        endDate = Date.now
+                                        print("## realm file dir -> \(Realm.Configuration.defaultConfiguration.fileURL!)")
                                     })
                                     .tint(.white)
                                     .buttonStyle(.bordered)
@@ -123,6 +125,17 @@ struct TodoPage: View {
                                     .cornerRadius(30)
                                     .controlSize(.large)
                                     .frame(width: 200, height: 50) // 버튼의 크기 조정
+                                    .alert(isPresented: $alertOpen, content: {
+                                        Alert(
+                                            title: Text(alertTitle),
+                                            message: Text(alertMessage),
+                                            dismissButton: .default(Text(alertButton), action: {
+                                                // 알림 창을 닫는 액션을 여기에 추가합니다.
+                                                alertOpen = false
+                                                isAlert = false
+                                            })
+                                        )
+                                    })
                                 }
                             })
 
@@ -130,7 +143,6 @@ struct TodoPage: View {
                 })
             })
         })
-
         
     }// body
     
@@ -138,7 +150,7 @@ struct TodoPage: View {
         alertTitle = title
         alertMessage = message
         alertButton = button
-        isAlert = true
+        alertOpen = true
         dismiss()
     }
 }
