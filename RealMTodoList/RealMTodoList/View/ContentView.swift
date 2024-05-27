@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ContentView: View {
     
     @State var selection = 0
-//    let todoVM : ViewModel
     
     var body: some View {
+        
         TabView(selection: $selection,
                 content:  {
             TodoPage()
@@ -29,8 +30,12 @@ struct ContentView: View {
                 }
                 .tag(2)
         })
-        .tint(.primary)
+        .tint(.main)
     }
+}
+
+extension Color {
+    static let main = Color("myColor1")
 }
 
 #Preview {

@@ -33,6 +33,13 @@ struct TodoList: Identifiable {
     }
 }
 
+//struct TodoList {
+//    var todolist: TodoListObject // Realm 모델 객체를 직접 사용
+//    
+//    init(todolist: TodoListObject) {
+//        self.todolist = todolist
+//    }
+//}
 
 
 //

@@ -32,7 +32,7 @@ class TodoListViewModel: ObservableObject {
             
             token = results.observe({ changes in
                 self.todos = results.map(TodoList.init)
-                    .sorted(by: {$0.startdate > $1.startdate})
+                    //.sorted(by: {$0.startdate > $1.startdate})
             })
             
         } catch let error {
@@ -51,7 +51,8 @@ class TodoListViewModel: ObservableObject {
     }
     
     
-    func update(id: String, title: String, startdate: Date, enddate: Date, status: Int) {
+    func update(id: String, title: String, startdate: Date, enddate: Date) -> Bool{
+        var result = true
         do {
             let realm = try Realm()
             let objectId = try ObjectId(string: id)
@@ -60,12 +61,15 @@ class TodoListViewModel: ObservableObject {
                 todo?.title = title
                 todo?.startdate = startdate
                 todo?.enddate = enddate
-                todo?.status = status
-                
+
+                result = true
             }
         } catch let error {
+            result = false
             print(error.localizedDescription)
         }
+        
+        return result
     }
     
     //delete
