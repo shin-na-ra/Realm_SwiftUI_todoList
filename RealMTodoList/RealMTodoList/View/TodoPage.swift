@@ -103,15 +103,19 @@ struct TodoPage: View {
                                         alertOpen.toggle()
                                         isTextFieldFoucsed = false
                                         
-                                        self.result = viewModel.addTodoList(title: userInput, startdate: startDate, enddate: endDate, status: 0)
-                                        
-                                        if self.result {
-                                            showAlert(title: "알림", message: "추가되었습니다.", button: "확인")
+                                        if userInput.isEmpty{
+                                            showAlert(title: "경고", message: "데이터를 입력하세요.", button: "확인")
                                         } else {
-                                            showAlert(title: "알림", message: "추가에 실패했습니다.", button: "확인")
+                                            self.result = viewModel.addTodoList(title: userInput, startdate: startDate, enddate: endDate, status: 0)
+                                            
+                                            if self.result {
+                                                showAlert(title: "알림", message: "추가되었습니다.", button: "확인")
+                                            } else {
+                                                showAlert(title: "알림", message: "추가에 실패했습니다.", button: "확인")
+                                            }
+                                            
+                                            alertOpen = true
                                         }
-                                        
-                                        alertOpen = true
                                         
                                         self.userInput = ""
                                         startDate = Date.now
