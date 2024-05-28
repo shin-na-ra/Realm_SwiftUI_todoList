@@ -67,7 +67,7 @@ struct TodoPage: View {
                         
                       
                     })
-                    .onTapGesture {
+                    .onLongPressGesture {
                         selectedIndex = index
                         isShowingConfirmation = true
                     }
@@ -75,7 +75,7 @@ struct TodoPage: View {
                 .onAppear {
                     viewModel.setupObserver()
                 }
-                .navigationTitle("TodoList")
+                .navigationTitle("할 일 목록")
                 .navigationBarTitleDisplayMode(.inline)
                 .font(.system(.body, design: .rounded))
                 .alert(isPresented: $isShowingConfirmation, content: {
