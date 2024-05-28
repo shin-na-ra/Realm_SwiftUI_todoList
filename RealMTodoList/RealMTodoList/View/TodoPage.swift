@@ -10,18 +10,25 @@ import RealmSwift
 
 struct TodoPage: View {
     
-    @ObservedObject private var viewModel = TodoListViewModel()
-    @State var isAlert: Bool = false
-    @State var userInput : String = ""
-    @State var startDate: Date = Date()
-    @State var endDate: Date = Date()
-    @FocusState var isTextFieldFoucsed: Bool
-    @State var result: Bool = true
-    @Environment(\.dismiss) var dismiss
-    @State private var alertTitle: String = ""
-    @State private var alertMessage: String = ""
-    @State private var alertButton: String = ""
-    @State private var alertOpen: Bool = false
+    @ObservedObject private var viewModel = TodoListViewModel() // viewModel
+    @State var isAlert: Bool = false        // 할일 작성 alert
+    @State var userInput : String = ""      // 할일 text
+    @State var startDate: Date = Date()     // 시작일
+    @State var endDate: Date = Date()       // 종료일
+    @FocusState var isTextFieldFoucsed: Bool    // 커서 focus
+    @State var result: Bool = true              // addaction 결과값
+    @Environment(\.dismiss) var dismiss         // 창 사라지게
+    
+    
+    @State var alertTitle: String = ""          // 확인 alert창 제목
+    @State var alertMessage: String = ""        // 확인 alert창 메세지
+    @State var alertButton: String = ""         // 확인 alert창 버튼
+    @State var alertOpen: Bool = false          // 확인 alert창 bool
+    @State var alertStatus: Bool = false          // 확인 alert창 bool
+    
+    @State var isShowingConfirmation = false  //actionSheet 여부
+    @State var selectedIndex: Int? // 선택한 값
+    
     
     let todayDate = Date.now
     
@@ -39,7 +46,8 @@ struct TodoPage: View {
         let todoLists = viewModel.todoLists
         
         NavigationView(content: {
-                List(todoLists) { todolist in
+            List(viewModel.todoLists.indices, id:\.self) { index in
+                let todolist = viewModel.todoLists[index]
                     NavigationLink(destination: {
                         TodoDetailPage(id: todolist.id.stringValue, title: todolist.title, startdate: todolist.startdate, enddate: todolist.enddate)
                     }, label: {
@@ -55,19 +63,38 @@ struct TodoPage: View {
                             .font(.system(size: 15))
                         })
                     })
+                    .onTapGesture {
+                        selectedIndex = index
+                        isShowingConfirmation = true
+                    }
                 }// List
                 .onAppear {
                     viewModel.setupObserver()
                 }
-            .navigationTitle("TodoList")
-            .navigationBarTitleDisplayMode(.inline)
-            .font(.system(.body, design: .rounded))
+                .navigationTitle("TodoList")
+                .navigationBarTitleDisplayMode(.inline)
+                .font(.system(.body, design: .rounded))
+                .alert(isPresented: $isShowingConfirmation, content: {
+                    Alert(
+                        title: Text("완료처리하시겠습니까?"),
+                        message: nil,
+                        primaryButton: .default(Text("예")) {
+                            if let index = selectedIndex {
+                                let idValue = viewModel.todoLists[index].id.stringValue
+                                result = viewModel.updateStatus(id: idValue, status: 1)
+                                showAlert(title: "알림", message: result ? "완료처리되었습니다." : "완료처리에 실패했습니다.", button: "확인")
+                            }
+                        },
+                        secondaryButton: .cancel(Text("아니오"))
+                    )
+                })
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing, content: {
                     Image(systemName: "plus.circle")
                         .onTapGesture(perform: {
                             isAlert.toggle()
                         })
+                        .padding(.trailing, 10)
                         .sheet(isPresented: $isAlert, content: {
                             VStack(content: {
                                 Text("할 일 :")
@@ -144,7 +171,10 @@ struct TodoPage: View {
                             })
 
                         })
-                })
+                        .navigationTitle("할 일 추가")
+                        .navigationBarTitleDisplayMode(.inline)
+                })// ToolbarItem
+                
             })
         })
         

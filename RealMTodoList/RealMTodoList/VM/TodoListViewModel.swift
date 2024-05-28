@@ -75,6 +75,25 @@ class TodoListViewModel: ObservableObject {
         return result
     }
     
+    // 완료처리
+    func updateStatus(id: String, status: Int) -> Bool{
+        var result = true
+        do {
+            let realm = try Realm()
+            let objectId = try ObjectId(string: id)
+            let todo = realm.object(ofType: TodoListObject.self, forPrimaryKey: objectId)
+            try realm.write{
+                todo?.status = status
+                result = true
+            }
+        } catch let error {
+            result = false
+            print(error.localizedDescription)
+        }
+        
+        return result
+    }
+    
     //delete
     func deleteTodoList(id : String) {
         do {

@@ -28,7 +28,7 @@ struct TodoDetailPage: View {
         ScrollView {
             VStack(content: {
                 Spacer()
-                    .frame(height: 200)
+                    .frame(height: 100)
                 HStack(content: {
                     Text("할 일 : ")
                         .bold()
@@ -90,9 +90,11 @@ struct TodoDetailPage: View {
             }
             .frame(width: 200, height: 50)
                 
-            })
-        }
-    }
+            }) //vstack
+        } // scrollview
+        .navigationTitle("할 일 수정")
+        .navigationBarTitleDisplayMode(.large)
+    } // body
     
     func showAlert(title: String, message: String, button: String) {
         alertTitle = title
