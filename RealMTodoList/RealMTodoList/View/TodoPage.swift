@@ -42,14 +42,11 @@ struct TodoPage: View {
     
     var body: some View {
         
-        // startdate기준으로 최신 메모가 가장 위에 오도록 정렬
-        let todoLists = viewModel.todoLists
-        
         NavigationView(content: {
             List(viewModel.todoLists.indices, id:\.self) { index in
                 let todolist = viewModel.todoLists[index]
                     NavigationLink(destination: {
-                        TodoDetailPage(id: todolist.id.stringValue, title: todolist.title, startdate: todolist.startdate, enddate: todolist.enddate)
+                        TodoDetailPage(id: todolist.id.stringValue, title: todolist.title, startdate: todolist.startdate, enddate: todolist.enddate, status: todolist.status)
                     }, label: {
                         VStack(alignment: .leading, content: {
                             Text(todolist.title)
@@ -64,10 +61,9 @@ struct TodoPage: View {
                             .padding(.top, 5)
                             .font(.system(size: 15))
                         })
-                        
-                      
                     })
-                    .onLongPressGesture {
+                    .onLongPressGesture{
+                        print("작동됨!!! ")
                         selectedIndex = index
                         isShowingConfirmation = true
                     }
@@ -80,14 +76,19 @@ struct TodoPage: View {
                 .font(.system(.body, design: .rounded))
                 .alert(isPresented: $isShowingConfirmation, content: {
                     Alert(
-                        title: Text("완료처리하시겠습니까?"),
+                        title: Text(
+                            viewModel.todoLists[selectedIndex!].status == 0
+                            ? "완료처리하시겠습니까?"
+                            : "완료해제 하시겠습니까?"
+                        ),
                         message: nil,
                         primaryButton: .default(Text("예")) {
                             if let index = selectedIndex {
                                 let idValue = viewModel.todoLists[index].id.stringValue
+                                let statusValue = viewModel.todoLists[index].status
                                 
-                                self.resultStatus = viewModel.updateStatus(id: idValue, status: 1)
-                                isShowingConfirmation = true
+                                self.resultStatus = viewModel.updateStatus(id: idValue, status: statusValue == 0 ? 1 :0)
+                                isShowingConfirmation = false
                             }
                         },
                         secondaryButton: .cancel(Text("아니요"))
