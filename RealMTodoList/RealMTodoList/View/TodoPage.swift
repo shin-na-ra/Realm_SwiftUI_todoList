@@ -183,7 +183,7 @@ struct TodoPage: View {
                         })
 
                     })
-                    .navigationTitle("할 일 추가")
+                    .navigationTitle("할 일 목록")
                     .navigationBarTitleDisplayMode(.inline)
                     })// ToolbarItem
                     
