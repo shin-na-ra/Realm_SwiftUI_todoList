@@ -17,6 +17,7 @@ struct TodoPage: View {
     @State var endDate: Date = Date()       // 종료일
     @FocusState var isTextFieldFoucsed: Bool    // 커서 focus
     @State var result: Bool = true              // addaction 결과값
+    @State var resultStatus: Bool = true       // addaction 결과값
     @Environment(\.dismiss) var dismiss         // 창 사라지게
     
     
@@ -24,7 +25,6 @@ struct TodoPage: View {
     @State var alertMessage: String = ""        // 확인 alert창 메세지
     @State var alertButton: String = ""         // 확인 alert창 버튼
     @State var alertOpen: Bool = false          // 확인 alert창 bool
-    @State var alertStatus: Bool = false          // 확인 alert창 bool
     
     @State var isShowingConfirmation = false  //actionSheet 여부
     @State var selectedIndex: Int? // 선택한 값
@@ -54,14 +54,18 @@ struct TodoPage: View {
                         VStack(alignment: .leading, content: {
                             Text(todolist.title)
                                 .bold()
+                                .foregroundStyle(todolist.status == 1 ? Color.black.opacity(0.5) : Color.black)
                             HStack(content: {
                                 Text(dateFormatter.string(from: todolist.startdate))
                                 Text("~")
                                 Text(dateFormatter.string(from: todolist.enddate))
                             })
+                            .foregroundStyle(todolist.status == 1 ? Color.black.opacity(0.5) : Color.black)
                             .padding(.top, 5)
                             .font(.system(size: 15))
                         })
+                        
+                      
                     })
                     .onTapGesture {
                         selectedIndex = index
@@ -81,11 +85,12 @@ struct TodoPage: View {
                         primaryButton: .default(Text("예")) {
                             if let index = selectedIndex {
                                 let idValue = viewModel.todoLists[index].id.stringValue
-                                result = viewModel.updateStatus(id: idValue, status: 1)
-                                showAlert(title: "알림", message: result ? "완료처리되었습니다." : "완료처리에 실패했습니다.", button: "확인")
+                                
+                                self.resultStatus = viewModel.updateStatus(id: idValue, status: 1)
+                                isShowingConfirmation = true
                             }
                         },
-                        secondaryButton: .cancel(Text("아니오"))
+                        secondaryButton: .cancel(Text("아니요"))
                     )
                 })
             .toolbar(content: {
