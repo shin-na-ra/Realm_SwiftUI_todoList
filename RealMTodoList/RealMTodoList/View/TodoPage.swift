@@ -159,7 +159,6 @@ struct TodoPage: View {
                                     self.userInput = ""
                                     startDate = Date.now
                                     endDate = Date.now
-                                    print("## realm file dir -> \(Realm.Configuration.defaultConfiguration.fileURL!)")
                                 })
                                 .tint(.white)
                                 .buttonStyle(.bordered)
